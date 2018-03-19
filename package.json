@@ -1,0 +1,14 @@
+{
+  "name": "graphql101",
+  "version": "1.0.0",
+  "description": "A gentle introduction to a different API paradigm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "edsadr",
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^0.13.2"
+  }
+}
