@@ -9,14 +9,14 @@ const port = process.env.port || 3000
 // Defining a initial schama with GraphQL schema language
 const schema = buildSchema(`
   type Query {
-    hello: String
+    hello(name: String): String
   }
 `)
 
 // Setup a resolver for the query defined in the schema
 const root = {
-  hello: () => {
-    return 'Hello world!'
+  hello: (args) => {
+    return `Hello ${args.name}!`
   }
 }
 
