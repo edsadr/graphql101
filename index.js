@@ -1,48 +1,27 @@
 'use strict'
 
 const { buildSchema } = require('graphql')
+const fs = require('fs')
 const express = require('express')
 const gqlMiddleware = require('express-graphql')
+const path = require('path')
+
 const app = express()
 const port = process.env.port || 3000
+const schemaCode = fs.readFileSync(path.join(__dirname, 'lib', 'schema.graphql'), 'utf8')
+const storage = require('./lib/storage')
 
-// Defining a initial schama with GraphQL schema language
-const schema = buildSchema(`
-  type Message {
-    id: ID!
-    text: String!
-    author: String!
-    comment: String
-  }
-
-  type Query {
-    getAllMessages: [Message]
-  }
-`)
+// Defining a initial schema with GraphQL schema language
+const schema = buildSchema(schemaCode)
 
 // Setup a resolver for the query defined in the schema
 const root = {
+  getMessage: (args) => {
+    const message = storage.filter((item) => item.id === args.id)
+    return message[0]
+  },
   getAllMessages: (args) => {
-    return [
-      {
-        id: '1',
-        text: 'This is a message from the past',
-        author: 'Steve Jobs',
-        comment: 'Obviously, this was not Steve'
-      },
-      {
-        id: '2',
-        text: 'This is a message from the present',
-        author: 'Elon Musk',
-        comment: 'Obviously, this is not Elon'
-      },
-      {
-        id: '3',
-        text: 'This is a message from the future',
-        author: 'Marty McFly',
-        comment: 'Looks like this was Marty'
-      }
-    ]
+    return storage
   }
 }
 

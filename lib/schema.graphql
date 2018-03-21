@@ -1,0 +1,11 @@
+type Message {
+  id: ID!
+  text: String!
+  author: String!
+  comment: String
+}
+
+type Query {
+  getMessage(id: ID!): Message
+  getAllMessages: [Message]
+}
