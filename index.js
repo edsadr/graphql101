@@ -1,6 +1,10 @@
 'use strict'
 
-const { graphql, buildSchema } = require('graphql')
+const { buildSchema } = require('graphql')
+const express = require('express')
+const gqlMiddleware = require('express-graphql')
+const app = express()
+const port = process.env.port || 3000
 
 // Defining a initial schama with GraphQL schema language
 const schema = buildSchema(`
@@ -16,7 +20,13 @@ const root = {
   }
 }
 
-// Run the GraphQL query 'hello' and print out the response
-graphql(schema, '{ hello }', root).then((data) => {
-  console.log(data)
+// Serve the GraphQL in /api using an express middleware
+app.use('/api', gqlMiddleware({
+  schema: schema,
+  rootValue: root,
+  graphiql: true
+}))
+
+app.listen(port, () => {
+  console.log(`server is listening at http://localhost:${port}/api`)
 })
