@@ -8,15 +8,41 @@ const port = process.env.port || 3000
 
 // Defining a initial schama with GraphQL schema language
 const schema = buildSchema(`
+  type Message {
+    id: ID!
+    text: String!
+    author: String!
+    comment: String
+  }
+
   type Query {
-    hello(name: String): String
+    getAllMessages: [Message]
   }
 `)
 
 // Setup a resolver for the query defined in the schema
 const root = {
-  hello: (args) => {
-    return `Hello ${args.name}!`
+  getAllMessages: (args) => {
+    return [
+      {
+        id: '1',
+        text: 'This is a message from the past',
+        author: 'Steve Jobs',
+        comment: 'Obviously, this was not Steve'
+      },
+      {
+        id: '2',
+        text: 'This is a message from the present',
+        author: 'Elon Musk',
+        comment: 'Obviously, this is not Elon'
+      },
+      {
+        id: '3',
+        text: 'This is a message from the future',
+        author: 'Marty McFly',
+        comment: 'Looks like this was Marty'
+      }
+    ]
   }
 }
 
