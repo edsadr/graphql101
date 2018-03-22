@@ -1,8 +1,13 @@
 type Message {
   id: ID!
   text: String!
-  author: String!
+  author: Author!
   comment: String
+}
+
+type Author {
+  id: ID!
+  name: String!
 }
 
 input MessageInput {
