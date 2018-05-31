@@ -12,7 +12,7 @@ This repository contains the code of an introductory workshop to GraphQL, it is 
 
 To check the code for every exercise you just need to checkout the desired tag, like: `git checkout 03`
 
-Slides are available here: (https://slides.com/edsadr/graphql/)[https://slides.com/edsadr/graphql/]
+Slides are available here: <https://slides.com/edsadr/graphql/>
 
 ## Links to visit after this workshop
 
